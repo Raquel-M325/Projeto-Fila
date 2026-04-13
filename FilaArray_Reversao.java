@@ -3,32 +3,44 @@ public class FilaArray_Reversao implements Fila{
     private int inicio_reverso;
     private int fim_reverso;
     private int capacidade;
-    private int crescimento;
     private Object[] arr;
     private int botao;
 
-    public FilaArray_Reversao(int capacidade; int crescimento){
-        arr = new Object[capacidade];
+    public FilaArray_Reversao(int capacidade){
         this.capacidade = capacidade;
-        this.crescimento = crescimento;
         this.inicio_reverso = 0;
         this.fim_reverso = 0;
         this.botao = 0;
+        arr = new Object[capacidade];
+
     }
 
 
     public void enqueue(Object o){
-        if (size() == capacidade - 1){
-            grow();
+        if (botao == 1){
+            if (size() == capacidade - 1){
+                grow_invertido();
+            }
+
+            arr[fim_reverso] = o;
+            fim_reverso = (fim_reverso - 1 + capacidade) % capacidade;
+
+            if (size() < capacidade / 3){
+                shrink_invertido();
         }
 
-        arr[fim_reverso] = o;
-        fim_reverso = (fim_reverso - 1 + capacidade) % capacidade;
+        } else{
+            if (size() == capacidade - 1){
+                grow_normal();
+            }
 
-        if (size() < capacidade / 3){
-            shrink();
+            arr[fim_reverso] = o;
+            fim_reverso = (fim_reverso + 1) % capacidade;
+
+            if (size() < capacidade / 3){
+                shrink_normal();
+            }
         }
-
     }
 
     public Object dequeue() throws FilaVazia{
@@ -36,14 +48,26 @@ public class FilaArray_Reversao implements Fila{
             throw new FilaVazia("Fila está vazia!");
         }
 
-        Object RetiradoReverso_pop = arr[inicio_reverso];
-        inicio_reverso = (inicio_reverso - 1 + capacidade) % capacidade;
+        if (botao == 1){
+            Object RetiradoInverso_pop = arr[inicio_reverso];
+            inicio_reverso = (inicio_reverso - 1 + capacidade) % capacidade;
 
-        if (size() < capacidade / 3){
-            shrink();
+            if (size() < capacidade / 3){
+                shrink_invertido();
+            }
+
+            return RetiradoInverso_pop;
+
+        } else{
+            Object Retirado_pop = arr[inicio_reverso];
+            inicio_reverso = (inicio_reverso + 1) % capacidade;
+
+            if (size() < capacidade / 3){
+                shrink_normal();
+            }
+
+            return Retirado_pop;
         }
-
-        return RetiradoReverso_pop;
     }
 
     public int size(){
@@ -54,7 +78,7 @@ public class FilaArray_Reversao implements Fila{
         return fim_reverso == inicio_reverso;
     }
 
-    public void grow(){
+    public void grow_invertido(){
         int nova_capacidade = capacidade * 2; //vai crescer indepentemente;
         Object[] novo_arr = new Object [nova_capacidade];
         int novo_inicio_reverso = inicio_reverso; //uso temporário
@@ -65,14 +89,29 @@ public class FilaArray_Reversao implements Fila{
 
         }
 
-
         capacidade = nova_capacidade;
         arr = novo_arr;
         inicio_reverso = 0;
         fim_reverso = size(); //precisarei analisar
     }
 
-    public void shrink(){
+    public void grow_normal(){
+        int nova_capacidade = capacidade * 2;
+        Object[] novo_arr = new Object[nova_capacidade];
+        int novo_inicio = inicio_reverso;
+
+        for (int i = 0; i < size(); i++){
+            novo_arr[i] = arr[novo_inicio];
+            novo_inicio = (novo_inicio + 1) % capacidade;
+        }
+
+        arr = novo_arr;
+        capacidade = nova_capacidade;
+        inicio_reverso = 0;
+        fim_reverso = size();
+    }
+
+    public void shrink_invertido(){
         int capacidade_reduzida = capacidade / 2;
         Object[] novo_arr = new Object[capacidade_reduzida];
         int novo_inicio_reverso = inicio_reverso;
@@ -89,8 +128,27 @@ public class FilaArray_Reversao implements Fila{
         fim_reverso = size();
     }
 
-    public void botao_reverso(){
+    public void shrink_normal(){
+        int capacidade_reduzida = capacidade / 2;
+        Object[] novo_arr = new Object[capacidade_reduzida];
+        int novo_inicio_reverso = inicio_reverso;
+
+        for (int i = 0; i < size(); i++){
+            novo_arr[i] = arr[novo_inicio_reverso];
+            novo_inicio_reverso = (novo_inicio_reverso + 1) % capacidade;
+
+        }
+
+        arr = novo_arr;
+        capacidade = capacidade_reduzida;
+        inicio_reverso = 0;
+        fim_reverso = size();
         
     }
+
+    public void botao_reverso(){ //já está terminado por ter feito outra forma
+        botao = (botao + 1) % 2;
+    }
+
     //lembra a logica de pilha preta
 }
