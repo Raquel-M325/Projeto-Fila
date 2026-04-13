@@ -5,4 +5,5 @@ public interface Fila {
     public boolean isEmpty();
     public void grow();
     public void shrink();
+    public void botao_reverso();
 }

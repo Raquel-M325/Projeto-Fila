@@ -5,6 +5,7 @@ public class FilaArray_Reversao implements Fila{
     private int capacidade;
     private int crescimento;
     private Object[] arr;
+    private int botao;
 
     public FilaArray_Reversao(int capacidade; int crescimento){
         arr = new Object[capacidade];
@@ -12,6 +13,7 @@ public class FilaArray_Reversao implements Fila{
         this.crescimento = crescimento;
         this.inicio_reverso = 0;
         this.fim_reverso = 0;
+        this.botao = 0;
     }
 
 
@@ -85,6 +87,10 @@ public class FilaArray_Reversao implements Fila{
         capacidade = capacidade_reduzida;
         inicio_reverso = 0;
         fim_reverso = size();
+    }
+
+    public void botao_reverso(){
+        
     }
     //lembra a logica de pilha preta
 }
