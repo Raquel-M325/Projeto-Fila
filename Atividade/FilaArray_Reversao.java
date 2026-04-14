@@ -94,7 +94,7 @@ public class FilaArray_Reversao implements Fila {
         capacidade = nova_capacidade;
         arr = novo_arr;
         inicio_reverso = tamanho_atual - 1;   //usa valor salvo
-        fim_reverso = capacidade - 1;         //era `capacidade` (fora dos limites!)
+        fim_reverso = capacidade - 1;         //nao ficar fora dos limites do array
     }
 
     public void grow_normal() {
