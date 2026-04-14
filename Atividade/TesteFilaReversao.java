@@ -10,11 +10,20 @@ public class TesteFilaReversao{
         execute.enqueue(5);
 
         System.out.println(execute.size());
-        execute.botao();
+        execute.botao_reverso();
+
+        execute.enqueue(7);
+        execute.enqueue(8);
 
         execute.dequeue();
-        execute.dequeue();        
+        execute.dequeue();
+        
+        
+        System.out.println(execute.size());
+        execute.botao_reverso();
 
+        execute.dequeue();
+        execute.dequeue();
 
     } 
 }
