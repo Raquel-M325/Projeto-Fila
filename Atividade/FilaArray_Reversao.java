@@ -149,7 +149,7 @@ public class FilaArray_Reversao implements Fila{
 
     public void botao_reverso(){ //já está terminado por ter feito outra forma
         botao = (botao + 1) % 2;
-        int novo_inicio = inicio_reverso; //precisa reservar o valor antes do inicio para que ele nao acabe pegando o valor novo do inicio
+        novo_inicio = inicio_reverso; //precisa reservar o valor antes do inicio para que ele nao acabe pegando o valor novo do inicio
 
         if (botao == 1){
             novo_inicio = (fim_reverso - 1 + capacidade) % capacidade; //quero trocar os indices
