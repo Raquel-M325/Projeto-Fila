@@ -28,6 +28,8 @@ public class TesteFilaReversao{
 
         execute.dequeue();
         execute.dequeue();
+        System.out.println(execute.size());
+
 
     } 
 }
