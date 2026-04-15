@@ -19,7 +19,7 @@ public interface Fila {
 ## FilaArray_Reversao
 
 ```java
-pandoc
+
 public class FilaArray_Reversao implements Fila {
 
     private int inicio_reverso;
